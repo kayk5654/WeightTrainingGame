@@ -6,10 +6,10 @@ using System.IO;
 public class SaveAndLoad {
 
 	// In the future update, the save data will be stored in a server.
-	static private string filepath = Application.persistentDataPath + "saveData.json";
+	static private string filepath = Application.persistentDataPath + Path.DirectorySeparatorChar;
 
-	public static bool exists(){
-		if (File.Exists (filepath)) {
+	public static bool exists(int _exerciseId){
+		if (File.Exists (filepath + _exerciseId + "_saveData.json")) {
 			return true;
 		} else {
 			return false;
@@ -17,31 +17,25 @@ public class SaveAndLoad {
 	}
 
 	public static void save (SavedData _data, int _exerciseId) {
-		SavedData[] dataArray = new SavedData[3];
-
-		// to overwrite previous data, existing data is loaded
-		if (exists()) {
-			string data = File.ReadAllText (filepath);
-			dataArray = JsonArrayHelper.FromJson<SavedData> (data);
-		}
-
-		dataArray [_exerciseId] = _data;
-
-		string json = JsonArrayHelper.ToJson (dataArray);
-		File.WriteAllText (filepath, json);
+		string json = JsonUtility.ToJson (_data);
+		File.WriteAllText (filepath + _exerciseId + "_saveData.json", json);
 	}
 	
 	public static SavedData load (int _exerciseId) {
-		if (!File.Exists (filepath)) {
+		if (!File.Exists (filepath + _exerciseId + "_saveData.json")) {
 			return null;
 		}
 
-		string data = File.ReadAllText (filepath);
-		SavedData[] dataArray = JsonArrayHelper.FromJson<SavedData> (data);
-		return dataArray[_exerciseId];
+		string json = File.ReadAllText (filepath + _exerciseId + "_saveData.json");
+		SavedData data = JsonUtility.FromJson<SavedData>(json);
+		return data;
 	}
 
 	public static void reset(){
-		File.Delete (filepath);
+		// delete all files in a directory
+		string[] filePaths = Directory.GetFiles(filepath);
+		foreach (string path in filePaths) {
+			File.Delete (path);
+		}
 	}
 }

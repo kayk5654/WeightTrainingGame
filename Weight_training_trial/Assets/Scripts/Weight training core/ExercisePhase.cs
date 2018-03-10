@@ -157,12 +157,14 @@ public class ExercisePhase : MonoBehaviour {
 		saveData.exerciseId = exerciseId;
 		saveData.setNumber = setNumber;
 		saveData.repsNumber = repsNumber;
+
+		suggestWeight ();
 		saveData.suggestedWeight = suggestedWeight;
 
 		// compare the score of this time and the highest score the player ever had
 		float finalScore = getFinalScore ();
 
-		if (SaveAndLoad.exists ()) {
+		if (SaveAndLoad.exists (exerciseId)) {
 			SavedData prevData = SaveAndLoad.load (exerciseId);
 
 			if (prevData.highScore > finalScore) {

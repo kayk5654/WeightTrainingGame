@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Floatable : MonoBehaviour {
 
-	public bool 	forceEffect = false;
-	public Renderer rend;
-	public int 		id;
-	public bool 	isActive = true;
+	public bool 			forceEffect = false;
+	public Renderer 		rend;
+	public int 				id;
+	public bool 			isActive = true;
+	public ParticleSystem 	ps;
 
 	private Rigidbody rbd;
 
@@ -33,6 +34,7 @@ public class Floatable : MonoBehaviour {
 	void OnCollisionEnter(Collision other){
 		if (other.gameObject.CompareTag ("controller")) {
 			//Color color = rend.material.GetColor ("_Color");
+			ps.Play();
 			isActive = false;
 			//Destroy(gameObject);
 		}

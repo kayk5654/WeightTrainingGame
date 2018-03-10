@@ -8,7 +8,7 @@ public class ExerciseManagement : MonoBehaviour {
 	// output
 	public int 			repsNumber;
 	public int 			setNumber;
-	public float 		suggestedWeight;
+	public float 		suggestedWeight = 0f;
 	public int 			exerciseId;
 	public float 		interval;
 	public int[] 		typeOfTracker; // 0:head, 1:right hand, 2:left hand
