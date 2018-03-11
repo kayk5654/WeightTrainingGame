@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class ClickableInitFormButton : Clickable {
 
 	// input
-	public Evaluation evaluation;
-	public FormInitProcess initProcess;
-	public PageTransition root;
+	public Evaluation 		evaluation;
+	public FormInitProcess 	initProcess;
+	public PageTransition 	root;
 
 	// output
 	public Color normalColor;
@@ -31,7 +31,7 @@ public class ClickableInitFormButton : Clickable {
 
 			if (!pressed) {
 				img.color = pressedColor;
-
+				soundFeedback ();
 				pressed = true;
 
 			} else {

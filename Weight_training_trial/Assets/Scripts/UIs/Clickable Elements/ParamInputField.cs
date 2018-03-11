@@ -79,6 +79,7 @@ public class ParamInputField : Clickable {
 
 	void selectValue(bool _scrollUp, bool _scrollDown){
 		if (_scrollDown && selectedValue > valueMin) {
+			soundFeedback ();
 			selectedValue -= step;
 
 			if (selectedValue < valueMin) {
@@ -86,6 +87,7 @@ public class ParamInputField : Clickable {
 			}
 
 		} else if (_scrollUp && selectedValue < valueMax) {
+			soundFeedback ();
 			selectedValue += step;
 
 			if (selectedValue > valueMax) {

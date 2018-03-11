@@ -10,17 +10,23 @@ public class SetEndParticleEffect : MonoBehaviour {
 	public ParticleSystem 	ps;
 	public ParticleSystem 	shockwave;
 
+	void Start(){
+		init ();
+	}
+
 	void init () {
 		var duration = ps.main.duration;
-		duration = 2f;
+		duration = 0.1f;
 		var loop = ps.main.loop;
 		loop = false;
+		var startSpeed = ps.main.startSpeed;
+		startSpeed = 0f;
 	}
 
 	void activate (){
 		ps.Play ();
 		shockwave.Play ();
-		init ();
+
 	}
 
 	void deactivate (){
@@ -33,6 +39,7 @@ public class SetEndParticleEffect : MonoBehaviour {
 		ps.GetParticles (particles);
 
 		for (int i = 0; i < particles.Length; i++) {
+			particles [i].velocity = Vector3.zero;
 			Vector3 pos = particles [i].position;
 			float xzDist = Vector2.Distance (new Vector2(pos.x, pos.z), new Vector2(transform.position.x, transform.position.z));
 			Vector3 force = new Vector3 (pos.x - transform.position.x, 0f, pos.z - transform.position.z).normalized;
@@ -51,7 +58,6 @@ public class SetEndParticleEffect : MonoBehaviour {
 		if (exPhase.endOfSet || OVRInput.GetDown (OVRInput.RawButton.LThumbstickRight)) { // for debugging purpose
 			activate ();
 		}
-
 
 		if (ps.isPlaying) {
 			updateParticles ();

@@ -28,6 +28,7 @@ public class ClickableButton : Clickable {
 		if (_selected) {
 			if (!pressed) {
 				img.color = pressedColor;
+				soundFeedback ();
 				pressed = true;
 				root.transition (linkedPage);
 

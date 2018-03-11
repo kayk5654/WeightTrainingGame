@@ -31,6 +31,7 @@ public class ClickableTrainingPhaseButton : Clickable {
 		if (_selected) {
 			if (!pressed) {
 				img.color = pressedColor;
+				soundFeedback ();
 				pressed = true;
 
 				switch (optionalFunctions) {
@@ -40,6 +41,7 @@ public class ClickableTrainingPhaseButton : Clickable {
 						break;
 
 					case OptionalFunctions.phase2start:
+						exercisePhase.evaluation.initNextPeakOfReps ();
 						root.transition (linkedPage);
 						break;
 

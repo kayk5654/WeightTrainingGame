@@ -13,6 +13,7 @@ public class ScaleOrb : MonoBehaviour {
 	public ParticleSystem 	ps;
 	public Transform 		trackingTarget;
 	public Transform[] 		controllers;
+	public Renderer 		rend;
 
 	// internal use
 	private Vector3 	targetScale;
@@ -23,6 +24,10 @@ public class ScaleOrb : MonoBehaviour {
 	private bool 		activated = false;
 	private bool 		scaling = false;
 	private bool 		positionFixed = false;
+	private float 		baseAlpha = 0.078f;
+	private float 		alphaMul = 2;
+	private float 		alphaPhase = 0f;
+	private bool 		alphaInitialized = false;
 
 	void Start () {
 		targetScale = transform.localScale;
@@ -44,6 +49,12 @@ public class ScaleOrb : MonoBehaviour {
 
 		if (!activated) {
 			return;
+		}
+
+		if (!alphaInitialized) {
+			fadeInAlpha ();
+		} else {
+			adjustAlpha ();
 		}
 
 		if (!positionFixed) {
@@ -78,6 +89,26 @@ public class ScaleOrb : MonoBehaviour {
 
 	void initTracking(){
 		transform.position = trackingTarget.position;
+	}
+
+	void fadeInAlpha(){
+		alphaPhase += 0.05f;
+
+		rend.material.SetFloat("_BaseAlpha", alphaPhase * baseAlpha);
+		rend.material.SetFloat ("_AlphaMul", alphaPhase * alphaMul);
+
+		if (alphaPhase > 1f){
+			alphaPhase = 1f;
+			alphaInitialized = true;
+		}
+	}
+
+	void adjustAlpha(){
+		float timeDiffFactor = (10f - Mathf.Abs (evaluation.nextPeakOfReps - Time.fixedTime)) * 0.1f;
+		float adjustedAlpha = Mathf.MoveTowards (alphaPhase, timeDiffFactor, 0.05f);
+		rend.material.SetFloat("_BaseAlpha", adjustedAlpha * baseAlpha);
+		rend.material.SetFloat ("_AlphaMul", adjustedAlpha * alphaMul);
+		alphaPhase = adjustedAlpha;
 	}
 
 	public void fixPosition(){
@@ -144,6 +175,8 @@ public class ScaleOrb : MonoBehaviour {
 
 	public void activate(){
 		this.GetComponent<Renderer> ().enabled = true;
+		rend.material.SetFloat("_BaseAlpha", 0f);
+		rend.material.SetFloat ("_AlphaMul", 0f);
 		particleActivate ();
 		activated = true;
 	}

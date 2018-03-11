@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Clickable : MonoBehaviour {
 
-	public 	bool 	pressed = false;
-	private Outline outline;
+	public 	bool 		pressed = false;
+	public 	AudioSource audio;
+	private Outline 	outline;
 
 	protected virtual void OnEnable(){
 		pressed = false;
@@ -25,6 +26,10 @@ public class Clickable : MonoBehaviour {
 			outline.enabled = true;
 		}
 
+	}
+
+	protected void soundFeedback(){
+		audio.Play ();
 	}
 
 	public void disableHighlight(){

@@ -13,6 +13,7 @@ public class Evaluation : MonoBehaviour {
 	public	int 				phase;
 	public 	FormInitProcess 	formInitProcess;
 	public	bool 				inInit = false;
+	public 	LineRenderer 		visualizationPath;
 
 	// output
 	public float scoreOfRep; // 0.0 to 1.0
@@ -22,7 +23,7 @@ public class Evaluation : MonoBehaviour {
 	private float 			repPeriod = 4.2f;
 	public 	bool 			peakOfReps = false;
 	private bool 			endOfReps = false;
-	private	float 			nextPeakOfReps;
+	public	float 			nextPeakOfReps;
 	private float 			lastRep;
 	private Vector3 		currentVel;
 	private Vector3 		prevVel;
@@ -35,6 +36,7 @@ public class Evaluation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		visualizationPath.enabled = false;
 	}
 
 	public void initForm(PackedInfo[] _input){
@@ -53,7 +55,7 @@ public class Evaluation : MonoBehaviour {
 		}
 
 		if (inInit){
-			//path.Add (input.Transform.position);
+			path.Add (input.Transform.position);
 			float dist1 = Vector3.Distance(repStartPos, repEndPos);
 			float dist2 = Vector3.Distance (repStartPos, input.Transform.position);
 			if (dist1 < dist2) {
@@ -64,8 +66,9 @@ public class Evaluation : MonoBehaviour {
 
 		if (!inInit && lastInitState) {
 			formInitProcess.initPhase = 2;
+			visualizePath ();
 			lastInitState = inInit;
-			//visualizePath ();
+
 		}
 
 	}
@@ -82,7 +85,7 @@ public class Evaluation : MonoBehaviour {
 
 		float accTh = 0.01f;
 
-		float distTh = 0.3f;
+		float distTh = Vector3.Distance(repStartPos, repEndPos) * 0.3f;
 		float distFromStartPos = Vector3.Distance (_input.Transform.position, repStartPos);
 		float distFromEndPos = Vector3.Distance (_input.Transform.position, repEndPos);
 
@@ -143,11 +146,9 @@ public class Evaluation : MonoBehaviour {
 	}
 
 	void visualizePath(){
-		LineRenderer line = transform.gameObject.AddComponent<LineRenderer> ();
-		line.endWidth = 0.1f;
-		line.startWidth = 0.1f;
-		line.startColor = Color.red;
-		line.endColor = Color.red;
-		line.SetPositions (path.ToArray());
+		visualizationPath.enabled = true;
+		visualizationPath.endWidth = 0.1f;
+		visualizationPath.startWidth = 0.1f;
+		visualizationPath.SetPositions (path.ToArray());
 	}
 }

@@ -16,7 +16,7 @@ Shader "WeightTrainingGame/RedShiftUnlit"
 		Tags { "RenderType" = "Transparent" "IgnoreProjector" = "True" "Queue" = "Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
 		Cull Off
-		ZWrite On
+		//ZWrite On
 		LOD 100
 
 		Pass

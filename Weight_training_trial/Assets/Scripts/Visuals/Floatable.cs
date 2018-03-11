@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floatable : MonoBehaviour {
+public class Floatable : LevelModule {
 
 	public bool 			forceEffect = false;
 	public Renderer 		rend;
@@ -13,7 +13,8 @@ public class Floatable : MonoBehaviour {
 	private Rigidbody rbd;
 
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
+		base.Start ();
 		rbd = GetComponent<Rigidbody> ();
 		rbd.drag = 0.5f;
 		isActive = true;
@@ -41,8 +42,8 @@ public class Floatable : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		
+	protected override void Update () {
+		base.Update ();
 	}
 
 	public void enableForce(Vector3 _force){

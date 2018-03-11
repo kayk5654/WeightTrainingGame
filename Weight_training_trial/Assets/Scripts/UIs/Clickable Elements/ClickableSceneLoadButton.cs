@@ -34,6 +34,7 @@ public class ClickableSceneLoadButton : Clickable {
 		if (_selected) {
 			if (!pressed) {
 				img.color = pressedColor;
+				soundFeedback ();
 				pressed = true;
 
 				if (optionalFunction == OptionalFunction.MenuToTraining) {

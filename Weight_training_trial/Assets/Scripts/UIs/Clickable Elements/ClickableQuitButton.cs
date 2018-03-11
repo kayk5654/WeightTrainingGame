@@ -27,6 +27,7 @@ public class ClickableQuitButton : Clickable {
 		if (_selected) {
 			if (!pressed) {
 				img.color = pressedColor;
+				soundFeedback ();
 				pressed = true;
 				Application.Quit ();
 

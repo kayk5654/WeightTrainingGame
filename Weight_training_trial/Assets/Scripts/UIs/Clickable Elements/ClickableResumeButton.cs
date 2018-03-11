@@ -28,6 +28,7 @@ public class ClickableResumeButton : Clickable {
 		if (_selected) {
 			if (!pressed) {
 				img.color = pressedColor;
+				soundFeedback ();
 				pressed = true;
 				controllerHandler.interruptMenuActivated = false;
 				parentPage.SetActive (false);

@@ -43,7 +43,7 @@ public class ClickableExerciseButton : Clickable {
 				if (data != null) {
 					buttonHandler.AssignSelectedParameters (data);
 				}
-
+				soundFeedback ();
 				pressed = true;
 				root.transition (linkedPage);
 

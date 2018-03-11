@@ -10,6 +10,7 @@ public class FormInitProcess : MonoBehaviour {
 	public Text 						textOutput;
 	public string[] 					statusTexts;
 	public ClickableTrainingPhaseButton button;
+	public AudioSource 					capturingSound;
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +23,14 @@ public class FormInitProcess : MonoBehaviour {
 	void Update () {
 		if (initPhase == 0 || initPhase == 2) {
 			statusGraphics.sequenceOn = false;
+			if (capturingSound.isPlaying) {
+				capturingSound.Stop ();
+			}
 		} else {
 			statusGraphics.sequenceOn = true;
+			if (!capturingSound.isPlaying) {
+				capturingSound.Play ();
+			}
 		}
 
 		textOutput.text = statusTexts [initPhase];

@@ -78,10 +78,6 @@ public class ExercisePhase : MonoBehaviour {
 
 	public void updatePhase(){
 		phase++;
-		if (phase == 2) {
-			evaluation.initNextPeakOfReps ();
-		}
-
 		if (phase > 2) {
 			phase = 0;
 		}
