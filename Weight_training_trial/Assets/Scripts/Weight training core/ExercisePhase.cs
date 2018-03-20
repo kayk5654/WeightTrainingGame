@@ -15,21 +15,22 @@ public class ExercisePhase : MonoBehaviour {
 	private int[] 	typeOfTracker;
 
 	// input
-	public DeviceInfoGetter device;
-	public PageTransition 	mainCanvasTransition;
-	public ScaleOrb 		orb;
+	public DeviceInfoGetter	 	device;
+	public PageTransition 		mainCanvasTransition;
+	public ScaleOrb 			orb;
+	public EnvironmentFeedback 	environment;
+	public SetEndParticleEffect particles;
 
 	// output
 	public Evaluation 	evaluation;
 	public int 			phase = 1;
 	public Text 		scoreOnUI;
-	public bool 		endOfSet = false;
 
 	// internal use
 	public  int 			setCount = 0;
 	public  int 			repCount = 0;
 	private List<float> 	scores;
-	private bool 			inInterval = false;
+	public	bool 			inInterval = false;
 	public  float 			intervalTime;
 
 	void Awake () {
@@ -97,46 +98,64 @@ public class ExercisePhase : MonoBehaviour {
 		evaluation.phase = phase;
 	}
 
+	// count reps
+	public void addRepCount(){
+		repCount++;
+		scores.Add (evaluation.scoreOfRep);
+		orb.setTargetScale (evaluation.scoreOfRep);
+	}
+
 	void count(){
 		// count interval
 		if (inInterval) {
 			
-			intervalTime += Time.fixedDeltaTime;
+			intervalTime += Time.deltaTime;
 
 			if (intervalTime > interval * 60f){
+				evaluation.peakOfReps = false;
+				evaluation.endOfReps = false;
+				evaluation.detectPeak = true;
+				evaluation.isExercising = true;
+				evaluation.lastPeak = Time.fixedTime;
+				evaluation.nextPeakOfReps = evaluation.lastPeak + evaluation.repPeriod;
 				mainCanvasTransition.transition (mainCanvasTransition.pages [4]);
 				inInterval = false;
 			}
 			return;
 		}
 
-		// count reps
-		if (evaluation.peakOfReps) {
-			repCount++;
-			scores.Add (evaluation.scoreOfRep);
-			orb.setTargetScale ();
-		}
-
 		// count sets
 		if (repCount >= repsNumber) {
-			endOfSet = true;
+			evaluation.endOfReps = false;
 			setCount++;
 			repCount = 0;
 			orb.resetTarget ();
-			endOfSet = false;
+			environment.setTarget ();
+			particles.activate ();
 
 			// start interval
 			if (setCount < setNumber) {
+				intervalTime = 0f;
 				inInterval = true;
+				evaluation.isExercising = false;
 				mainCanvasTransition.transition (mainCanvasTransition.pages [2]);
 			}
 		}
 
 		// finish counting and calculate score
 		if (setCount >= setNumber) {
+			evaluation.isExercising = false;
 			updatePhase ();
 			saveScore ();
 		}
+	}
+
+	public float getScoreOfSet(){
+		float scoreSum = 0;
+		for (int i = repsNumber * (setCount - 1); i < scores.Count; i++) {
+			scoreSum += scores [i];
+		}
+		return scoreSum / repsNumber;
 	}
 
 	float getFinalScore(){
@@ -182,6 +201,11 @@ public class ExercisePhase : MonoBehaviour {
 	}
 
 	void showResult(){
+		// update phase
+		phase = 0;
+		device.phase = phase;
+		evaluation.phase = phase;
+
 		// assign calculated score on UI element
 		scoreOnUI.text = getFinalScore().ToString();
 

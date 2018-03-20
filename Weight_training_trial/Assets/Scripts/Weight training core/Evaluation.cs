@@ -14,17 +14,18 @@ public class Evaluation : MonoBehaviour {
 	public 	FormInitProcess 	formInitProcess;
 	public	bool 				inInit = false;
 	public 	LineRenderer 		visualizationPath;
+	public  ExercisePhase 		exPhase;
 
 	// output
 	public float scoreOfRep; // 0.0 to 1.0
 	public float totalScore;
 
 	// internal use
-	private float 			repPeriod = 4.2f;
+	public  float 			repPeriod = 4.2f;
 	public 	bool 			peakOfReps = false;
-	private bool 			endOfReps = false;
+	public  bool 			endOfReps = false;
 	public	float 			nextPeakOfReps;
-	private float 			lastRep;
+	public	float 			lastPeak;
 	private Vector3 		currentVel;
 	private Vector3 		prevVel;
 	public 	Vector3 		repStartPos;
@@ -33,6 +34,9 @@ public class Evaluation : MonoBehaviour {
 	private List<Vector3> 	path;
 
 	private bool 			lastInitState = false;
+	public  bool 			isExercising = false;
+	public  bool 			detectPeak = true;
+	private float 			averageDot;
 
 	// Use this for initialization
 	void Start () {
@@ -61,7 +65,6 @@ public class Evaluation : MonoBehaviour {
 			if (dist1 < dist2) {
 				repEndPos = input.Transform.position;
 			}
-			Debug.Log("inInit");
 		}
 
 		if (!inInit && lastInitState) {
@@ -74,14 +77,16 @@ public class Evaluation : MonoBehaviour {
 	}
 
 	public void initNextPeakOfReps(){
-		nextPeakOfReps = Time.fixedTime + repPeriod;
+		lastPeak = Time.fixedTime;
+		nextPeakOfReps = lastPeak + repPeriod;
+		isExercising = true;
 	}
 
 	public void analize(PackedInfo _input){
 
 		currentVel = _input.Velocity;
 		float diffVel = Vector3.Dot (currentVel, prevVel);
-		float dotTh = 0.6f;
+		float dotTh = 0.8f;
 
 		float accTh = 0.01f;
 
@@ -89,21 +94,37 @@ public class Evaluation : MonoBehaviour {
 		float distFromStartPos = Vector3.Distance (_input.Transform.position, repStartPos);
 		float distFromEndPos = Vector3.Distance (_input.Transform.position, repEndPos);
 
-		// detect peak of motion of a rep
-		if (_input.Acceleration < accTh && distFromStartPos > distTh && diffVel < dotTh) {
-			peakOfReps = true;
-			lastEndPos = _input.Transform.position;
+
+		if (detectPeak) {
+			endOfReps = false;
+
+			// detect peak of motion of a rep
+			if (distFromStartPos > distTh && diffVel < dotTh) {
+				//if (_input.Acceleration < accTh && distFromStartPos > distTh && diffVel < dotTh) {
+				peakOfReps = true;
+				lastEndPos = _input.Transform.position;
+				Debug.Log ("peak of reps");
+				detectPeak = false;
+			} else {
+				peakOfReps = false;
+			}
 		} else {
 			peakOfReps = false;
+
+			// detect end of rep
+			if (distFromStartPos < distTh && diffVel < dotTh) {
+				//if (_input.Acceleration < accTh && distFromStartPos < distTh && diffVel < dotTh) {
+				endOfReps = true;
+				Debug.Log ("end of reps");
+				detectPeak = true;
+			} else {
+				endOfReps = false;
+			}
 		}
 
-		// detect end of rep
-		if (_input.Acceleration < accTh && distFromStartPos < distTh && diffVel < dotTh) {
-			endOfReps = true;
-		} else {
-			endOfReps = false;
-		}
-		Debug.Log (diffVel);
+		Debug.Log ("diffVel: " + diffVel);
+		Debug.Log ("dist from start pos: " + distFromStartPos + " distTh: " + distTh + " detectPeak: " + detectPeak);
+
 		prevVel = currentVel;
 
 	}
@@ -120,29 +141,27 @@ public class Evaluation : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-
-		if (phase != 2 || inputArray == null) {
-			return;
-		}
-
-		// for trial version, which use only head
-		if (Time.fixedTime > nextPeakOfReps + 0.5f) {
-			PackedInfo input = inputArray [0];
-			analize (input);
-		}
-
-		// calculate next ideal peak of rep
-		if (peakOfReps) {
-			evaluate ();
-		}
-
-		if (endOfReps) {
-			nextPeakOfReps = Time.fixedTime + repPeriod;
-		}
-	}
-
-	void debug(){
+		if (phase == 2 && inputArray != null && isExercising) {
+			// for trial version, which use only head
+			if (Time.fixedTime > lastPeak + 0.1f) { // ignore packed info for certain period after peak or end of reps
+				PackedInfo input = inputArray [0];
+				analize (input);
+			}
 		
+			// calculate next ideal peak of rep
+			if (peakOfReps) {
+				lastPeak = Time.fixedTime;
+				peakOfReps = false;
+			}
+
+			if (endOfReps) {
+				evaluate ();
+				exPhase.addRepCount ();
+				lastPeak = Time.fixedTime;
+				nextPeakOfReps = lastPeak + repPeriod;
+				endOfReps = false;
+			}
+		}
 	}
 
 	void visualizePath(){

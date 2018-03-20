@@ -92,8 +92,9 @@ public class RiftInfoGetter : DeviceInfoGetter {
 
 		assignControllerAction ();
 
-		debug ();
-
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "Training") {
+			//debug ();
+		}
 	}
 
 	// for debugging
@@ -103,7 +104,7 @@ public class RiftInfoGetter : DeviceInfoGetter {
 		string debugText = "";
 
 		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "Training") {
-			debugText = "phase: " + phase + "\n" + "acceleration: " + packedInfo [0].Acceleration + "\n"
+			debugText = "phase: " + phase + "\n" + "acceleration: " + packedInfo [0].Acceleration + "\n" + "velocity: " + packedInfo[0].Velocity + "\n" 
 			                   + "start position: " + evaluation.repStartPos + "\n" + "end position: " + evaluation.repEndPos + "\n"
 			                   + "peak of rep: " + evaluation.peakOfReps + "\n" + "diff from startpos: " + Vector3.Distance (evaluation.repStartPos, head.transform.position) + "\n"
 			                   + "score of rep: " + evaluation.scoreOfRep;

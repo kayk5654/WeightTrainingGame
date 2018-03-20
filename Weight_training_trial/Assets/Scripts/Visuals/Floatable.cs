@@ -5,7 +5,6 @@ using UnityEngine;
 public class Floatable : LevelModule {
 
 	public bool 			forceEffect = false;
-	public Renderer 		rend;
 	public int 				id;
 	public bool 			isActive = true;
 	public ParticleSystem 	ps;
@@ -13,8 +12,8 @@ public class Floatable : LevelModule {
 	private Rigidbody rbd;
 
 	// Use this for initialization
-	protected override void Start () {
-		base.Start ();
+	protected override void OnEnable () {
+		base.OnEnable ();
 		rbd = GetComponent<Rigidbody> ();
 		rbd.drag = 0.5f;
 		isActive = true;

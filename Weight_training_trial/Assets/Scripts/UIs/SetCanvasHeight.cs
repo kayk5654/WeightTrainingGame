@@ -8,7 +8,7 @@ public class SetCanvasHeight : MonoBehaviour {
 	public  bool 				resetHeight;
 
 	void OnEnable () {
-		transform.position = new Vector3(transform.position.x, 0.9f, transform.position.z);
+		transform.position = new Vector3(transform.position.x, 1.3f, transform.position.z);
 	}
 
 	void reset(){

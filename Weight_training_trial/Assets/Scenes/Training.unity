@@ -140,7 +140,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 6463928}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -9.870001, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1630001, z: 0}
   m_LocalScale: {x: 0.5052131, y: 0.5052131, z: 0.5052131}
   m_Children:
   - {fileID: 1566392156}
@@ -500,7 +500,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rend: {fileID: 36518599}
   forceEffect: 0
-  rend: {fileID: 36518599}
   id: 0
   isActive: 1
   ps: {fileID: 36518601}
@@ -4097,7 +4096,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7e27555244b773c4d86b5ba4678926fb, type: 3}
-    m_FontSize: 36
+    m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -4143,7 +4142,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 105251236}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0.23499966, z: 0}
   m_LocalScale: {x: 0.5052131, y: 0.5052131, z: 0.5052131}
   m_Children:
   - {fileID: 1681961840}
@@ -4961,7 +4960,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1523897536
+  randomSeed: 913410227
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9478,7 +9477,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 655329024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7536316, z: 1.242}
+  m_LocalPosition: {x: 0, y: 1.199997, z: 1.242}
   m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_Children:
   - {fileID: 1003875334}
@@ -9492,7 +9491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75363}
+  m_AnchoredPosition: {x: 0, y: 1.2}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &657410387
@@ -10181,7 +10180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &842922679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10246,7 +10245,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 842922678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.644001, y: 0.75361633, z: 1.242}
+  m_LocalPosition: {x: -0.644001, y: 1.199997, z: 1.242}
   m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_Children:
   - {fileID: 1393839505}
@@ -10255,7 +10254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.644, y: 0.75362}
+  m_AnchoredPosition: {x: -0.64400005, y: 1.2}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &852836816
@@ -11219,7 +11218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1074687352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11309,7 +11308,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1074687351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7536316, z: 1.082}
+  m_LocalPosition: {x: 0, y: 1.2000008, z: 1.082}
   m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_Children:
   - {fileID: 1175801107}
@@ -11319,7 +11318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.75363}
+  m_AnchoredPosition: {x: 0, y: 1.2}
   m_SizeDelta: {x: 100, y: 67.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1077729177
@@ -11565,7 +11564,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 905273701
+  randomSeed: 1560621846
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15640,8 +15639,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press the circular button, do one rep to check the form of the exercise
-    while capturing your form.
+  m_Text: 'Press the circular button, do one rep to check the form of the exercise.
+
+    When you finish a rep, press the button again.'
 --- !u!222 &1251014405
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17080,11 +17080,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initPhase: 0
   statusGraphics: {fileID: 2044724940}
-  textOutput: {fileID: 1856989813}
+  buttonText: {fileID: 1856989813}
+  description: {fileID: 1251014404}
   statusTexts:
-  - Start capturing!
-  - Capturing form...
-  - Captured!
+  - Start checking form!
+  - Checking form...
+  - Done!
+  descriptionTexts:
+  - Press the circular button, do one rep to check the form of the exercise.
+  - Move down slowly to feel your weight on the muscles, and rift up fast. Then, press
+    the button again.
+  - 'OK, let''s move on actual exercise. '
   button: {fileID: 1672789091}
   capturingSound: {fileID: 2044724941}
 --- !u!114 &1645305671
@@ -17860,7 +17866,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Capturing form...
+  m_Text: Start checking form!
 --- !u!222 &1856989814
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18141,7 +18147,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 817658268
+  randomSeed: 1593371168
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21777,12 +21783,18 @@ MonoBehaviour:
   formInitProcess: {fileID: 1645305670}
   inInit: 0
   visualizationPath: {fileID: 1090321076}
+  exPhase: {fileID: 2048610711}
   scoreOfRep: 0
   totalScore: 0
+  repPeriod: 4.2
   peakOfReps: 0
+  endOfReps: 0
   nextPeakOfReps: 0
+  lastPeak: 0
   repStartPos: {x: 0, y: 0, z: 0}
   repEndPos: {x: 0, y: 0, z: 0}
+  isExercising: 0
+  detectPeak: 1
 --- !u!120 &2048610709
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -21884,7 +21896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   environment: {fileID: 440559118}
   feedbackType: 0
-  effectFactor: 0.35
+  effectFactor: 0.5
   evaluation: {fileID: 2048610708}
   exPhase: {fileID: 2048610711}
 --- !u!114 &2048610711
@@ -21903,12 +21915,14 @@ MonoBehaviour:
   device: {fileID: 2048610705}
   mainCanvasTransition: {fileID: 655329027}
   orb: {fileID: 587175281}
+  environment: {fileID: 2048610710}
+  particles: {fileID: 1893436988}
   evaluation: {fileID: 2048610708}
   phase: 1
   scoreOnUI: {fileID: 736713961}
-  endOfSet: 0
   setCount: 0
   repCount: 0
+  inInterval: 0
   intervalTime: 0
 --- !u!1 &2098615692
 GameObject:
@@ -22106,7 +22120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rend: {fileID: 2108638425}
   forceEffect: 0
-  rend: {fileID: 2108638425}
   id: 0
   isActive: 1
   ps: {fileID: 2108638430}

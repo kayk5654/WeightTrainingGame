@@ -23,13 +23,13 @@ public class SetEndParticleEffect : MonoBehaviour {
 		startSpeed = 0f;
 	}
 
-	void activate (){
+	public void activate (){
 		ps.Play ();
 		shockwave.Play ();
 
 	}
 
-	void deactivate (){
+	public void deactivate (){
 		ps.Stop ();
 		shockwave.Stop ();
 	}
@@ -55,7 +55,7 @@ public class SetEndParticleEffect : MonoBehaviour {
 	void Update () {
 		transform.position = new Vector3 (referencePosition.position.x, transform.position.y, referencePosition.position.z);
 
-		if (exPhase.endOfSet || OVRInput.GetDown (OVRInput.RawButton.LThumbstickRight)) { // for debugging purpose
+		if (OVRInput.GetDown (OVRInput.RawButton.LThumbstickUp)) { // for debugging purpose
 			activate ();
 		}
 

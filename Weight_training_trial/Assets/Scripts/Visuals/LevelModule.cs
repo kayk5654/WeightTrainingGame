@@ -8,7 +8,7 @@ public class LevelModule : MonoBehaviour {
 
 	private float alpha = 0f;
 
-	protected virtual void Start(){
+	protected virtual void OnEnable(){
 		rend.material.SetFloat ("_Alpha", alpha);
 	}
 

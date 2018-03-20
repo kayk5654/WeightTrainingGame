@@ -39,7 +39,7 @@ public class PackedInfo {
 
 		velList.Add (rawVel.normalized);
 
-		if (velList.Count > 2) {
+		if (velList.Count > 1) {
 			velList.RemoveAt (0);
 		}
 

@@ -9,7 +9,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 	public 	GameObject 			environment;
 	public 	enum FeedbackType 	{scale = 0, moveUp = 1};
 	public 	FeedbackType 		feedbackType = 0;
-	public 	float 				effectFactor = 0.35f;
+	public 	float 				effectFactor = 0.5f;
 	public 	Evaluation 			evaluation;
 	public 	ExercisePhase 		exPhase;
 
@@ -42,10 +42,10 @@ public class EnvironmentFeedback : MonoBehaviour {
 
 	void Update () {
 
-		if(exPhase.endOfSet || OVRInput.GetDown(OVRInput.RawButton.LThumbstickUp)){ // for testing purpose
+		if(OVRInput.GetDown(OVRInput.RawButton.LThumbstickUp)){ // for testing purpose
 			
 			if (feedbackType == 0) {
-				setTargetScale();
+				setTargetScale(exPhase.getScoreOfSet());
 			} else {
 				setTargetPosition();
 			}
@@ -77,8 +77,18 @@ public class EnvironmentFeedback : MonoBehaviour {
 		
 	}
 
-	void setTargetScale(){
-		targetScale = environment.transform.localScale * (1f - effectFactor);
+	public void setTarget(){
+		if (feedbackType == 0) {
+			setTargetScale(exPhase.getScoreOfSet());
+		} else {
+			setTargetPosition();
+		}
+
+		Debug.Log ("feedback triggered");
+	}
+
+	void setTargetScale(float _scoreOfSet = 0f){
+		targetScale = environment.transform.localScale * (1f - (effectFactor * _scoreOfSet));
 		beginScale = environment.transform.localScale;
 		phase = 0f;
 	}

@@ -24,8 +24,8 @@ public class ScaleOrb : MonoBehaviour {
 	private bool 		activated = false;
 	private bool 		scaling = false;
 	private bool 		positionFixed = false;
-	private float 		baseAlpha = 0.078f;
-	private float 		alphaMul = 2;
+	private float 		baseAlpha = 0.206f;
+	private float 		alphaMul = 2f;
 	private float 		alphaPhase = 0f;
 	private bool 		alphaInitialized = false;
 
@@ -38,7 +38,6 @@ public class ScaleOrb : MonoBehaviour {
 	
 	void Update () {
 
-		//debug ();
 		if (exPhase.phase == 2 && !activated){
 			activate ();
 		}
@@ -61,15 +60,6 @@ public class ScaleOrb : MonoBehaviour {
 			tracking ();
 		}
 
-		/*
-		if (exPhase.endOfSet) {
-			resetTarget ();
-		}
-
-		if (evaluation.peakOfReps) {
-			setTargetScale ();
-		}
-		*/
 		if (resetting || OVRInput.GetDown (OVRInput.RawButton.LThumbstickRight)) {  // for debugging purpose
 			// call vfx for the end of a set
 			reset ();
@@ -94,8 +84,8 @@ public class ScaleOrb : MonoBehaviour {
 	void fadeInAlpha(){
 		alphaPhase += 0.05f;
 
-		rend.material.SetFloat("_BaseAlpha", alphaPhase * baseAlpha);
-		rend.material.SetFloat ("_AlphaMul", alphaPhase * alphaMul);
+		rend.material.SetFloat("_BaseAlpha", alphaPhase * baseAlpha * 0.5f);
+		rend.material.SetFloat ("_AlphaMul", alphaPhase * alphaMul * 0.5f);
 
 		if (alphaPhase > 1f){
 			alphaPhase = 1f;
@@ -104,11 +94,18 @@ public class ScaleOrb : MonoBehaviour {
 	}
 
 	void adjustAlpha(){
-		float timeDiffFactor = (10f - Mathf.Abs (evaluation.nextPeakOfReps - Time.fixedTime)) * 0.1f;
-		float adjustedAlpha = Mathf.MoveTowards (alphaPhase, timeDiffFactor, 0.05f);
-		rend.material.SetFloat("_BaseAlpha", adjustedAlpha * baseAlpha);
-		rend.material.SetFloat ("_AlphaMul", adjustedAlpha * alphaMul);
-		alphaPhase = adjustedAlpha;
+		if (evaluation.isExercising) {
+			float timeDiffFactor = (10f - Mathf.Abs (evaluation.nextPeakOfReps - Time.fixedTime)) * 0.1f;
+			float adjustedAlpha = Mathf.MoveTowards (alphaPhase, timeDiffFactor, 0.05f);
+			rend.material.SetFloat ("_BaseAlpha", adjustedAlpha * baseAlpha);
+			rend.material.SetFloat ("_AlphaMul", adjustedAlpha * alphaMul);
+			alphaPhase = adjustedAlpha;
+		} else {
+			float adjustedAlpha = Mathf.MoveTowards (alphaPhase, 0.5f, 0.05f);
+			rend.material.SetFloat("_BaseAlpha", alphaPhase * baseAlpha);
+			rend.material.SetFloat ("_AlphaMul", alphaPhase * alphaMul);
+			alphaPhase = adjustedAlpha;
+		}
 	}
 
 	public void fixPosition(){
@@ -121,8 +118,8 @@ public class ScaleOrb : MonoBehaviour {
 		transform.position = Vector3.MoveTowards(transform.position, trackingTarget.position, step);
 	}
 
-	public void setTargetScale(){
-		targetScale = transform.localScale * scaleRatio;
+	public void setTargetScale(float _scoreOfRep = 0f){
+		targetScale = transform.localScale * (scaleRatio + _scoreOfRep);
 		beginScale = transform.localScale;
 
 		phase = 0f;
@@ -220,7 +217,6 @@ public class ScaleOrb : MonoBehaviour {
 
 	void debug(){
 		evaluation.peakOfReps = OVRInput.GetDown (OVRInput.RawButton.X);
-		exPhase.endOfSet = OVRInput.GetDown (OVRInput.RawButton.Y);
 
 	}
 }
