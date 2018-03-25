@@ -13,7 +13,7 @@ public class RedShift : MonoBehaviour {
 	private float shiftPhase = 0f;
 	private int lastRepCount;
 
-	// Use this for initialization
+	// initialization
 	void Start () {
 		redshift = Shader.Find ("WeightTrainingGame/RedShiftUnlit");
 
@@ -25,7 +25,7 @@ public class RedShift : MonoBehaviour {
 		targetLevel = rend.material.GetFloat ("_RedShadeLevel");
 	}
 	
-	// Update is called once per frame
+	// update red shading
 	void Update () {
 		if (rend.material.shader != redshift) {
 			return;
@@ -40,6 +40,7 @@ public class RedShift : MonoBehaviour {
 
 	}
 
+	// set target level of red shade
 	void setTargetLevel(){
 		float step = 1f / (float)(exPhase.repsNumber - 1);
 		beginLevel = rend.material.GetFloat ("_RedShadeLevel");
@@ -52,6 +53,7 @@ public class RedShift : MonoBehaviour {
 		shiftPhase = 0f;
 	}
 
+	// update red shading
 	void shiftRedLevel(){
 		rend.material.SetFloat("_RedShadeLevel", Mathf.Lerp (beginLevel, targetLevel, shiftPhase));
 		shiftPhase += 0.01f;

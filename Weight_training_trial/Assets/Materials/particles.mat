@@ -68,7 +68,7 @@ Material:
     - _GrazingAngle: 0
     - _HeightScale: 25
     - _HeightSource: 3
-    - _InvFade: 1.41
+    - _InvFade: 0.01
     - _LightBrightness: 1
     - _LightExponent: 2
     - _Metallic: 0

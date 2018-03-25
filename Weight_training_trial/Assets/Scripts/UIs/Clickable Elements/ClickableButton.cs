@@ -16,6 +16,7 @@ public class ClickableButton : Clickable {
 	// internal use
 	private Image img;
 
+	// initialize
 	protected override void OnEnable(){
 		base.OnEnable ();
 		img = GetComponent<Image> ();
@@ -23,6 +24,7 @@ public class ClickableButton : Clickable {
 	}
 
 	public override void pointed (bool _selected, bool _scrollUp, bool _scrollDown) {
+		// add highlight
 		base.pointed (_selected, _scrollUp, _scrollDown);
 
 		if (_selected) {

@@ -14,7 +14,6 @@ public class FormInitProcess : MonoBehaviour {
 	public ClickableTrainingPhaseButton button;
 	public AudioSource 					capturingSound;
 
-	// Use this for initialization
 	void Start () {
 		buttonText.text = statusTexts [0];
 		description.text = descriptionTexts [0];
@@ -22,20 +21,20 @@ public class FormInitProcess : MonoBehaviour {
 		button.enabled = false;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		if (initPhase == 0 || initPhase == 2) {
+		if (initPhase == 0 || initPhase == 2) { // set default condition
 			statusGraphics.sequenceOn = false;
 			if (capturingSound.isPlaying) {
 				capturingSound.Stop ();
 			}
-		} else {
+		} else { // when the system capturing the form of the exercise
 			statusGraphics.sequenceOn = true;
 			if (!capturingSound.isPlaying) {
 				capturingSound.Play ();
 			}
 		}
 
+		// update texts on the panel
 		buttonText.text = statusTexts [initPhase];
 		description.text = descriptionTexts [initPhase];
 

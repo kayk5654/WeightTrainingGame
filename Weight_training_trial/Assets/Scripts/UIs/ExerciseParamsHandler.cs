@@ -13,6 +13,7 @@ public class ExerciseParamsHandler : MonoBehaviour {
 		init ();
 	}
 
+	// initialization
 	void init(){
 		// get selected exercise
 		selectedExercise = exManager.exercises [exManager.exerciseId];
@@ -28,6 +29,7 @@ public class ExerciseParamsHandler : MonoBehaviour {
 				return;
 			}
 
+			// assign parameters for the input field from the data of selected exercises
 			parameters[i].valueMin = selectedExercise.valueMin[i];
 			parameters [i].valueMax = selectedExercise.valueMax [i];
 			parameters [i].step = selectedExercise.step [i];
@@ -36,6 +38,7 @@ public class ExerciseParamsHandler : MonoBehaviour {
 		}
 	}
 
+	// set exercise manager class selected parameters
 	public void AssignSelectedParameters(){
 		exManager.suggestedWeight = parameters[0].selectedValue;
 		exManager.setNumber = Mathf.RoundToInt(parameters[1].selectedValue);

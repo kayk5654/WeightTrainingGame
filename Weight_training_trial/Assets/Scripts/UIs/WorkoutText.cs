@@ -10,12 +10,13 @@ public class WorkoutText : MonoBehaviour {
 	public Text 	text;
 	public ExercisePhase exPhase;
 
+	// initialization
 	void OnEnable () {
 		sets = exPhase.setCount;
 		reps = exPhase.repCount;
 	}
 
-	// Update is called once per frame
+	// update reps
 	void Update () {
 		reps = exPhase.repCount;
 		string textString = reps + " reps\n" + sets + " sets";

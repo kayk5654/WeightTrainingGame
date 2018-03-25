@@ -5,6 +5,8 @@ using System;
 
 [Serializable]
 public class SelectedExercise {
+	// this is the temporal data of selected exercise to pass between two scenes
+
 
 	public int 			repsNumber;
 	public int 			setNumber;

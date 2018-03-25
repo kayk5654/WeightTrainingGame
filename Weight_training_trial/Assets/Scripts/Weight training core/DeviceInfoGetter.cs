@@ -40,6 +40,7 @@ public class DeviceInfoGetter : MonoBehaviour {
 		
 	}
 
+	// get information from trackers
 	protected virtual void getPackedInfo(){
 
 		for (int i = 0; i < typeOfTracker.Length; i++) {

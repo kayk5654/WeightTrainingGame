@@ -6,25 +6,25 @@ public class ControllerHandler : MonoBehaviour
 {
 
 	// input
-	public Transform head;
-	public GameObject interruptCanvas;
-	public GameObject	mainCanvas;
-	public bool interruptMenuActivated = false;
+	public Transform 		head;
+	public GameObject 		interruptCanvas;
+	public GameObject		mainCanvas;
+	public bool 			interruptMenuActivated = false;
 	public HapticFeedback[] controllerHaptics;
 
 	// output
-	public bool scrollUp;
-	public bool scrollDown;
-	public Vector2 scrollDir;
-	public bool selecting = false;
-	public Vector3 forwardVec;
-	public Vector3 rayOrigin;
-	public Transform hitpoint;
+	public bool 		scrollUp;
+	public bool 		scrollDown;
+	public Vector2 		scrollDir;
+	public bool 		selecting = false;
+	public Vector3 		forwardVec;
+	public Vector3 		rayOrigin;
+	public Transform 	hitpoint;
 
 	// internal use
-	private LineRenderer line;
-	private GameObject lastHitUIElement;
-	private GameObject lastOpenedPage;
+	private LineRenderer 	line;
+	private GameObject 		lastHitUIElement;
+	private GameObject 		lastOpenedPage;
 
 	void Start ()
 	{
@@ -47,9 +47,7 @@ public class ControllerHandler : MonoBehaviour
 	void Update ()
 	{
 		//visualizeRay ();
-
 		UIRaycasting ();
-
 		pause ();
 	}
 
@@ -61,10 +59,9 @@ public class ControllerHandler : MonoBehaviour
 		for (int j = 0; j < hits.Length; j++) {
 			
 			if (hits [j].transform.gameObject.layer == 5) { // enable pointer visualization if the layer is ui
-				//if (hits.Length > 0 && hits[0].transform.gameObject.layer == 5) { 
-
 				// enable pointer visualization
 				hitpoint.gameObject.GetComponent<MeshRenderer> ().enabled = true;
+
 				// set pointer visualization
 				hitpoint.position = hits [j].point;
 				hitpoint.LookAt (head);
@@ -72,6 +69,7 @@ public class ControllerHandler : MonoBehaviour
 				// enable raycast visualization
 				visualizeRay (Vector3.Distance (rayOrigin, hits [j].point));
 
+				// check whether the ray is casted on cliclable objects or scrollable objects
 				Clickable clickable = null;
 
 				for (int i = j; i < hits.Length; i++) {
@@ -85,7 +83,7 @@ public class ControllerHandler : MonoBehaviour
 					}
 				}
 
-
+				// if the ray is casted on active clickable objects...
 				if (clickable != null && clickable.enabled) {
 
 					// disable highlight on a object pointed previously
@@ -108,7 +106,7 @@ public class ControllerHandler : MonoBehaviour
 		}
 
 		// in case the ray doesn't hit the object in UI layer.z
-		//disable pointer visualization
+		// disable pointer visualization
 		hitpoint.gameObject.GetComponent<MeshRenderer> ().enabled = false;
 
 		// enable ray visualization
@@ -121,8 +119,8 @@ public class ControllerHandler : MonoBehaviour
 		}
 	}
 
+	// set haptic feedback on controllers
 	void activateHapics(){
-		// set haptic feedback on controllers
 		foreach(HapticFeedback haptic in controllerHaptics){
 			haptic.UIHaptics ();
 		}
@@ -143,6 +141,7 @@ public class ControllerHandler : MonoBehaviour
 					}
 				}
 				mainCanvasTransition.closeTemporarily ();
+
 			} else if (lastOpenedPage != null) {
 				mainCanvasTransition.transition (lastOpenedPage);
 			}

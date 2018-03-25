@@ -8,6 +8,7 @@ public class SaveAndLoad {
 	// In the future update, the save data will be stored in a server.
 	static private string filepath = Application.persistentDataPath + Path.DirectorySeparatorChar;
 
+	// check whether the saved data is already generated
 	public static bool exists(int _exerciseId){
 		if (File.Exists (filepath + _exerciseId + "_saveData.json")) {
 			return true;
@@ -16,11 +17,13 @@ public class SaveAndLoad {
 		}
 	}
 
+	// save the data of particular exercise
 	public static void save (SavedData _data, int _exerciseId) {
 		string json = JsonUtility.ToJson (_data);
 		File.WriteAllText (filepath + _exerciseId + "_saveData.json", json);
 	}
-	
+
+	// load the data of particular exercise
 	public static SavedData load (int _exerciseId) {
 		if (!File.Exists (filepath + _exerciseId + "_saveData.json")) {
 			return null;
@@ -31,6 +34,7 @@ public class SaveAndLoad {
 		return data;
 	}
 
+	// delete all saved data
 	public static void reset(){
 		// delete all files in a directory
 		string[] filePaths = Directory.GetFiles(filepath);

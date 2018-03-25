@@ -200,6 +200,7 @@ public class ExercisePhase : MonoBehaviour {
 		// suggest weight for the next time (optional)
 	}
 
+	// display the result of the exercise
 	void showResult(){
 		// update phase
 		phase = 0;

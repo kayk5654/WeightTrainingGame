@@ -51,6 +51,7 @@ public class Evaluation : MonoBehaviour {
 			path = new List<Vector3> ();
 		}
 
+		// start capturing form
 		if (inInit && !lastInitState) {
 			formInitProcess.initPhase = 1;
 			repStartPos = input.Transform.position;
@@ -58,6 +59,7 @@ public class Evaluation : MonoBehaviour {
 			lastInitState = inInit;
 		}
 
+		// capture form
 		if (inInit){
 			path.Add (input.Transform.position);
 			float dist1 = Vector3.Distance(repStartPos, repEndPos);
@@ -67,6 +69,7 @@ public class Evaluation : MonoBehaviour {
 			}
 		}
 
+		// end capturing form
 		if (!inInit && lastInitState) {
 			formInitProcess.initPhase = 2;
 			visualizePath ();
@@ -95,7 +98,7 @@ public class Evaluation : MonoBehaviour {
 		float distFromEndPos = Vector3.Distance (_input.Transform.position, repEndPos);
 
 
-		if (detectPeak) {
+		if (detectPeak) { // if the tracker is going to the furthest point
 			endOfReps = false;
 
 			// detect peak of motion of a rep
@@ -108,7 +111,7 @@ public class Evaluation : MonoBehaviour {
 			} else {
 				peakOfReps = false;
 			}
-		} else {
+		} else { // if the tracker is going back to the starting point
 			peakOfReps = false;
 
 			// detect end of rep
@@ -148,12 +151,12 @@ public class Evaluation : MonoBehaviour {
 				analize (input);
 			}
 		
-			// calculate next ideal peak of rep
 			if (peakOfReps) {
 				lastPeak = Time.fixedTime;
 				peakOfReps = false;
 			}
 
+			// calculate the target period of the next rep
 			if (endOfReps) {
 				evaluate ();
 				exPhase.addRepCount ();

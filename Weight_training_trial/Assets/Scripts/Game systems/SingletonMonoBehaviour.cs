@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
 {
+
+	// this may be used in future update potentially
 	protected static T instance;
 	public static T Instance {
 		get {

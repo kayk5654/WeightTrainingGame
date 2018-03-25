@@ -15,6 +15,7 @@ public class ExerciseButtonHandler : MonoBehaviour {
 		init ();
 	}
 
+	// initialization
 	void init(){
 		exerciseList = exManager.exercises;
 
@@ -32,6 +33,7 @@ public class ExerciseButtonHandler : MonoBehaviour {
 			exercisebuttons [i].data = exerciseList [i];
 		}
 
+		// deactivate buttons which aren't assigned any exercises
 		if (exerciseList.Length < exercisebuttons.Length){
 			for (int j = exerciseList.Length; j < exercisebuttons.Length; j++) {
 				exercisebuttons [j].deactivate ();
@@ -39,6 +41,7 @@ public class ExerciseButtonHandler : MonoBehaviour {
 		}
 	}
 
+	// set exercise info of selected exercise on this class
 	public void AssignSelectedParameters(ExerciseData _selectedData){
 		exManager.exerciseId = _selectedData.exerciseId;
 		exManager.typeOfTracker = _selectedData.typeOfTracker;

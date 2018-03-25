@@ -11,6 +11,7 @@ public class PageTransition : MonoBehaviour {
 		init ();
 	}
 
+	// initialization
 	public void init(){
 		for (int i = 0; i < pages.Length; i++) {
 			if (i==0) {
@@ -21,6 +22,7 @@ public class PageTransition : MonoBehaviour {
 		}
 	}
 
+	// close the opened panel
 	public void closeTemporarily(){
 		foreach (GameObject page in pages) {
 			if (page.activeSelf) {
@@ -29,6 +31,7 @@ public class PageTransition : MonoBehaviour {
 		}
 	}
 
+	// display another panel
 	public void transition(GameObject _nextPage){
 		foreach (GameObject page in pages) {
 			if (page.activeSelf && page != _nextPage) {

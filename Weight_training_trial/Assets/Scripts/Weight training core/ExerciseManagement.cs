@@ -39,8 +39,4 @@ public class ExerciseManagement : MonoBehaviour {
 		string filepath = Application.temporaryCachePath + "selectedExercise.json";
 		File.WriteAllText (filepath, tempData);
 	}
-
-	void debug(){
-		
-	}
 }

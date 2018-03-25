@@ -30,6 +30,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 		init ();
 	}
 
+	// initialization
 	void init(){
 		if (feedbackType == FeedbackType.scale) {
 			initScale = environment.transform.localScale;
@@ -65,6 +66,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 		}
 	}
 
+	// reset state of environment
 	void reset(){
 		
 		if (feedbackType == FeedbackType.scale) {
@@ -77,6 +79,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 		
 	}
 
+	// set target of scale/position
 	public void setTarget(){
 		if (feedbackType == 0) {
 			setTargetScale(exPhase.getScoreOfSet());

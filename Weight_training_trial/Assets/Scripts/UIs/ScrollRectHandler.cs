@@ -8,6 +8,7 @@ public class ScrollRectHandler : MonoBehaviour {
 	public ScrollRect 	scrollRect;
 	public AudioSource 	audio;
 
+	// initialize
 	void OnEnable(){
 		scrollRect.verticalNormalizedPosition = 1f;
 	}

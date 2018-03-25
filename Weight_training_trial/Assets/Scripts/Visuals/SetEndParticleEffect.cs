@@ -14,6 +14,7 @@ public class SetEndParticleEffect : MonoBehaviour {
 		init ();
 	}
 
+	// initialization
 	void init () {
 		var duration = ps.main.duration;
 		duration = 0.1f;
@@ -34,6 +35,7 @@ public class SetEndParticleEffect : MonoBehaviour {
 		shockwave.Stop ();
 	}
 
+	// update particle by force field
 	void updateParticles(){
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
 		ps.GetParticles (particles);

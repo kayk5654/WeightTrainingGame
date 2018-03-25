@@ -19,7 +19,7 @@ public class PlayTextureSequence : MonoBehaviour {
 		rend.material.SetTexture(textureName, textures [texId]);
 	}
 
-	// Update is called once per frame
+	// play image sequence
 	void Update () {
 		float currentPhase = Time.fixedTime % lenPerFrame;
 

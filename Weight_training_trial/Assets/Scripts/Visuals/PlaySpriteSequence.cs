@@ -15,6 +15,7 @@ public class PlaySpriteSequence : MonoBehaviour {
 	private float 	lastPhase = 0f;
 	private int 	Id = 0;
 
+	// initialize
 	void Start(){
 		img = GetComponent<Image> ();
 		initSequence ();
@@ -24,6 +25,7 @@ public class PlaySpriteSequence : MonoBehaviour {
 		lenPerFrame = 1f / fps;
 	}
 
+	// play image sequence
 	void playSequence(){
 		float currentPhase = Time.fixedTime % lenPerFrame;
 

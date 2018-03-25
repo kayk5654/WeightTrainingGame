@@ -10,13 +10,16 @@ public class RiftHapticFeedback : HapticFeedback {
 	private bool 			shortHapticsTrigger = false;
 
 	void Start(){
+		// generate haptics clip
 		byte[] sample = new byte[8];
 		for (int i = 0; i < sample.Length; i++){
 			sample[i] = (byte)(128 * (i % 2));
 		}
+
 		basicHapticsClip = new OVRHapticsClip (sample, sample.Length);
 	}
 
+	// activate haptic feedback when the hands touches something
 	protected override void OnCollisionEnter (Collision other) {
 		if (controller == Controller.left) {
 			OVRHaptics.LeftChannel.Mix (basicHapticsClip);
@@ -33,6 +36,7 @@ public class RiftHapticFeedback : HapticFeedback {
 		}
 	}
 
+	// activate haptic feedback when the player points ui elements
 	public override void UIHaptics(){
 		shortHapticsTrigger = true;
 

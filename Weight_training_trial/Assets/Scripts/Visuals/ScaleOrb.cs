@@ -38,7 +38,7 @@ public class ScaleOrb : MonoBehaviour {
 	
 	void Update () {
 
-		if (exPhase.phase == 2 && !activated){
+		if (exPhase.phase == 2 && !activated){ // if the phase of the contents is 2, activate orb
 			activate ();
 		}
 
@@ -46,20 +46,23 @@ public class ScaleOrb : MonoBehaviour {
 			deactivate ();
 		}
 
-		if (!activated) {
+		if (!activated) { // the rest of this function is applied if the orb is activated
 			return;
 		}
 
+		// set alpha level
 		if (!alphaInitialized) {
 			fadeInAlpha ();
 		} else {
 			adjustAlpha ();
 		}
 
+		// let orb tracks position and angle of the head
 		if (!positionFixed) {
 			tracking ();
 		}
 
+		// reset size of orb
 		if (resetting || OVRInput.GetDown (OVRInput.RawButton.LThumbstickRight)) {  // for debugging purpose
 			// call vfx for the end of a set
 			reset ();
@@ -68,6 +71,7 @@ public class ScaleOrb : MonoBehaviour {
 			particleDeactivate ();
 		}
 
+		// scale orb
 		if (scaling) {
 			scale ();
 		}
@@ -81,6 +85,7 @@ public class ScaleOrb : MonoBehaviour {
 		transform.position = trackingTarget.position;
 	}
 
+	// fade the orb in on the beginnning
 	void fadeInAlpha(){
 		alphaPhase += 0.05f;
 
@@ -93,6 +98,7 @@ public class ScaleOrb : MonoBehaviour {
 		}
 	}
 
+	// adjust the level of alpha based on the target period of the next rep
 	void adjustAlpha(){
 		if (evaluation.isExercising) {
 			float timeDiffFactor = (10f - Mathf.Abs (evaluation.nextPeakOfReps - Time.fixedTime)) * 0.1f;
@@ -100,6 +106,7 @@ public class ScaleOrb : MonoBehaviour {
 			rend.material.SetFloat ("_BaseAlpha", adjustedAlpha * baseAlpha);
 			rend.material.SetFloat ("_AlphaMul", adjustedAlpha * alphaMul);
 			alphaPhase = adjustedAlpha;
+
 		} else {
 			float adjustedAlpha = Mathf.MoveTowards (alphaPhase, 0.5f, 0.05f);
 			rend.material.SetFloat("_BaseAlpha", alphaPhase * baseAlpha);
@@ -108,16 +115,19 @@ public class ScaleOrb : MonoBehaviour {
 		}
 	}
 
+	// fix the position of the orb
 	public void fixPosition(){
 		transform.position = trackingTarget.position;
 		positionFixed = true;
 	}
 
+	// let orb track the head
 	void tracking(){
 		float step = Time.deltaTime * (Vector3.Distance(transform.position, trackingTarget.position) * 0.2f);
 		transform.position = Vector3.MoveTowards(transform.position, trackingTarget.position, step);
 	}
 
+	// set target scale of the orb
 	public void setTargetScale(float _scoreOfRep = 0f){
 		targetScale = transform.localScale * (scaleRatio + _scoreOfRep);
 		beginScale = transform.localScale;
@@ -126,6 +136,7 @@ public class ScaleOrb : MonoBehaviour {
 		scaling = true;
 	}
 
+	// scale orb
 	public void scale(){
 		
 		phase += step;
@@ -152,6 +163,7 @@ public class ScaleOrb : MonoBehaviour {
 		resetting = true;
 	}
 
+	// reset scale of orb
 	public void reset(){
 		transform.localScale = initialScale;
 

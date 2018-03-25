@@ -9,6 +9,7 @@ public class Preferences {
 		PlayerPrefs.Save ();
 	}
 
+	// set as default
 	public static void setDefault(){
 		setLanguage (0);
 		setAudioVolume (1f);

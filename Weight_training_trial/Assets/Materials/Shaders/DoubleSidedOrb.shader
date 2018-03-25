@@ -5,6 +5,8 @@
 		_BaseAlpha ("Base Alpha", Range(0, 0.3)) = 0.1
 		_RimPower ("Rim Power", Range(0.5, 5)) = 1
 		_AlphaMul ("Alpha Multiplier", Range(0, 2)) = 2
+		_Cube("Reflection Map", CUBE) = "" {}
+		_Reflection("Reflection Level", Range(0, 1)) = 0
 	}
 	SubShader {
 		Tags { "Queue"="Transparent" }
@@ -24,10 +26,13 @@
 		float _BaseAlpha;
 		float _RimPower;
 		float _AlphaMul;
+		samplerCUBE _Cube;
+		float _Reflection;
 
 		struct Input {
 			float2 uv_MainTex;
 			float3 viewDir;
+			float3 worldRefl;
 		};
 
 		fixed4 _Color;
@@ -42,7 +47,8 @@
 		void surf (Input IN, inout SurfaceOutput o) {
 			// Albedo comes from a texture tinted by color
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Emission = c.rgb;
+			fixed4 r = texCUBE(_Cube, IN.worldRefl) * _Reflection;
+			o.Emission = c.rgb + r.rgb;
 
 			half rim = 1.0 - saturate(dot (normalize(IN.viewDir), o.Normal));
 
