@@ -7,6 +7,7 @@ Shader "WeightTrainingGame/MaskingUnlit"
 		_MainTex ("Texture", 2D) = "white" {}
 		_Color ("Color", COLOR) = (1, 1, 1, 1)
 		_Mask ("Mask", 2D) = "white" {}
+		_BaseAlpha ("Base Alpha", Range(0,1)) = 0.1
 	}
 	SubShader
 	{
@@ -45,6 +46,7 @@ Shader "WeightTrainingGame/MaskingUnlit"
 			fixed4 _Color;
 			sampler2D _Mask;
 			float4 _Mask_ST;
+			float _BaseAlpha;
 			
 			v2f vert (appdata v)
 			{
@@ -63,6 +65,7 @@ Shader "WeightTrainingGame/MaskingUnlit"
 				fixed4 col = tex2D(_MainTex, i.uv) * _Color;
 
 				// apply alpha of the mask
+				col.a = saturate(col.a + _BaseAlpha);
 				col.a *= tex2D(_Mask, i.uv2).a;
 
 				// apply fog

@@ -9,9 +9,10 @@ public class EnvironmentFeedback : MonoBehaviour {
 	public 	GameObject 			environment;
 	public 	enum FeedbackType 	{scale = 0, moveUp = 1};
 	public 	FeedbackType 		feedbackType = 0;
-	public 	float 				effectFactor = 0.5f;
+	public 	float 				effectFactor = 0.8f;
 	public 	Evaluation 			evaluation;
 	public 	ExercisePhase 		exPhase;
+	public 	ParticleSystem 		speedPs;
 
 	// internal use
 	private Vector3 initScale;
@@ -39,6 +40,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 			initPosition = environment.transform.position;
 			targetPosition = initPosition;
 		}
+
 	}
 
 	void Update () {
@@ -106,7 +108,9 @@ public class EnvironmentFeedback : MonoBehaviour {
 	void scale (){
 		if (environment.transform.localScale.x > targetScale.x) {
 			//environment.transform.localScale *= (1f - 0.005f);
-
+			if (speedPs.isStopped){
+				speedPs.Play ();
+			}
 
 			phase += 0.005f;
 			float modifiedPhase = Mathf.SmoothStep(0f, 1f, phase);
@@ -115,9 +119,14 @@ public class EnvironmentFeedback : MonoBehaviour {
 			if (phase > 1f) {
 				phase = 1f;
 			}
-			
+
+			var YVelMultiplier = speedPs.velocityOverLifetime.y;		
+			YVelMultiplier = 10f * Mathf.Sin(modifiedPhase * Mathf.PI);
+			var pEmitRate = speedPs.emission.rateOverTime;
+			pEmitRate = 50f * Mathf.Sin (modifiedPhase * Mathf.PI);
 		} else {
 			environment.transform.localScale = targetScale;
+			speedPs.Stop ();
 		}
 	}
 
