@@ -9,6 +9,7 @@ public class SetEndParticleEffect : MonoBehaviour {
 	public Transform 		referencePosition;
 	public ParticleSystem 	ps;
 	public ParticleSystem 	shockwave;
+	public AudioSource 		audio;
 
 	void Start(){
 		init ();
@@ -27,12 +28,13 @@ public class SetEndParticleEffect : MonoBehaviour {
 	public void activate (){
 		ps.Play ();
 		shockwave.Play ();
-
+		audio.Play ();
 	}
 
 	public void deactivate (){
 		ps.Stop ();
 		shockwave.Stop ();
+		audio.Stop ();
 	}
 
 	// update particle by force field

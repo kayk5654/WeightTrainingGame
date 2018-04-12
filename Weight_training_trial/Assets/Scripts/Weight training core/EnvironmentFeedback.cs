@@ -9,7 +9,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 	public 	GameObject 			environment;
 	public 	enum FeedbackType 	{scale = 0, moveUp = 1};
 	public 	FeedbackType 		feedbackType = 0;
-	public 	float 				effectFactor = 0.8f;
+	public 	float 				effectFactor = 0.95f;
 	public 	Evaluation 			evaluation;
 	public 	ExercisePhase 		exPhase;
 	public 	ParticleSystem 		speedPs;
@@ -123,7 +123,7 @@ public class EnvironmentFeedback : MonoBehaviour {
 			var YVelMultiplier = speedPs.velocityOverLifetime.y;		
 			YVelMultiplier = 10f * Mathf.Sin(modifiedPhase * Mathf.PI);
 			var pEmitRate = speedPs.emission.rateOverTime;
-			pEmitRate = 50f * Mathf.Sin (modifiedPhase * Mathf.PI);
+			pEmitRate = 100f * Mathf.Sin (modifiedPhase * Mathf.PI);
 		} else {
 			environment.transform.localScale = targetScale;
 			speedPs.Stop ();
