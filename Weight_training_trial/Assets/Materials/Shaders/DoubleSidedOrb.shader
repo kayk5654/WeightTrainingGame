@@ -1,7 +1,6 @@
 ﻿Shader "WeightTrainingGame/DoubleSidedOrb" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_BaseAlpha ("Base Alpha", Range(0, 0.3)) = 0.1
 		_RimPower ("Rim Power", Range(0.5, 5)) = 1
 		_AlphaMul ("Alpha Multiplier", Range(0, 2)) = 2
@@ -22,7 +21,6 @@
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
-		sampler2D _MainTex;
 		float _BaseAlpha;
 		float _RimPower;
 		float _AlphaMul;
@@ -88,7 +86,6 @@
 			fixed4 c = _Color;
 			float3 noisePos = float3(IN.pos.x + _Time.x, IN.pos.y + _Time.x, IN.pos.z + _Time.x);
 			c.a = pow(perlin(IN.pos), 2);
-			//fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			fixed4 r = texCUBE(_Cube, IN.worldRefl) * _Reflection;
 			o.Emission = c.rgb + r.rgb;
 
