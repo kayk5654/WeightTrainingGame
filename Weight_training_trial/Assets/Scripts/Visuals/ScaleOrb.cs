@@ -11,6 +11,7 @@ public class ScaleOrb : MonoBehaviour {
 	public float 			scaleRatio = 1.5f;
 	public SphereCollider 	col;
 	public ParticleSystem 	ps;
+	public ParticleSystem 	lightVolume;
 	public Transform 		trackingTarget;
 	public Transform[] 		controllers;
 	public Renderer 		rend;
@@ -186,13 +187,13 @@ public class ScaleOrb : MonoBehaviour {
 		this.GetComponent<Renderer> ().enabled = true;
 		rend.material.SetFloat("_BaseAlpha", 0f);
 		rend.material.SetFloat ("_AlphaMul", 0f);
-		particleActivate ();
+		lightVolume.Play ();
 		activated = true;
 	}
 
 	public void deactivate(){
 		this.GetComponent<Renderer> ().enabled = false;
-		particleDeactivate ();
+		lightVolume.Stop ();
 		activated = false;
 	}
 
